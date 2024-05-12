@@ -94,4 +94,38 @@ public class BST<K extends Comparable<K>, V> {
         node.left = deleteMin(node.left);
         return node;
     }
+
+    public Iterator<K> iterator() {
+        return new InOrderIterator();
+    }
+
+    private class InOrderIterator implements Iterator<K> {
+        private Stack<Node> stack;
+
+        public InOrderIterator() {
+            stack = new Stack<>();
+            pushLeft(root);
+        }
+
+        private void pushLeft(Node node) {
+            while (node != null) {
+                stack.push(node);
+                System.out.println("key is " + node.getKey() + " and value is " + node.getValue());
+                node = node.left;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public K next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            Node current = stack.pop();
+            pushLeft(current.right);
+            return current.key;
+        }
+    }
 }
