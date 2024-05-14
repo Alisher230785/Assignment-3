@@ -26,8 +26,16 @@ public class MyHashTable<K,V> {
         chainArray = new HashNode[M];
         size = 0;
     }
-    private int hash(K key) {
-        return key.hashCode() % M;
+    public int hash(K key) {
+        return hashCode(key) % M;
+    }
+    private int hashCode(K key) {
+        int result = 0;
+        String keyString = key.toString();
+        for (int i = 0; i < keyString.length(); i++) {
+            result += keyString.charAt(i);
+        }
+        return result;
     }
     public void put(K key, V value) {
         int index = hash(key);
@@ -98,13 +106,5 @@ public class MyHashTable<K,V> {
             }
         }
         return null;
-    }
-    public int hashCode(K key) {
-        int result = 0;
-        String keyString = key.toString();
-        for (int i = 0; i < keyString.length(); i++) {
-            result += keyString.charAt(i);
-        }
-        return result;
     }
 }
