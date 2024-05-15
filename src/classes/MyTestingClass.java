@@ -10,6 +10,18 @@ public class MyTestingClass {
         this.key1 = key1;
         this.key2 = key2;
     }
+    public int hashCode() {
+        int result = 0;
+        String key1String = key1.toString();
+        String key2String = key2.toString();
+        for (int i = 0; i < key1String.length(); i++) {
+            result += key1String.charAt(i);
+        }
+        for (int i = 0; i < key2String.length(); i++) {
+            result += key2String.charAt(i);
+        }
+        return result;
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
